@@ -76,3 +76,50 @@ a.nav_submenu-link[href="/about-us#team"] { display: none !important; }
     opacity: 1 !important; transform: none !important; translate: none !important;
   }
 }
+
+/* The home pill shows the phone number as a real tel: link (make-dist.mjs). The title itself is pointer-events:none in the
+   export, so the link switches pointer events back on; it keeps the light title colour (Codex iOS pass, 1 Nov). */
+.nav_page-title a { color: inherit; text-decoration: none; pointer-events: auto; }
+
+@media (max-width: 767px) {
+  /* Range bounds on iOS left only 6px below the last hero line; retain 12px. */
+  .section_hero .hero_content:not(.is-center) {
+    padding-bottom: calc(var(--spaces--space-2x) + 6px);
+  }
+
+  /* Enlarge the logo hit box without moving or scaling the visible wordmark. */
+  .nav_logo-link {
+    min-height: 44px;
+    margin-block: calc((var(--spaces--space-2x) - 44px) / 2);
+  }
+}
+
+@media (max-width: 767px) {
+  /* Safari's detected phone number measured 32.14 × 12px. Inline padding
+     expands its hit area without changing the title's line box or position. */
+  .nav_page-title a {
+    padding: 16px 6px;
+    margin-inline: -6px;
+  }
+}
+
+/* iOS focus zoom was measured at 1.14179 with 50px horizontal overflow.
+   Keep pinch zoom available; prevent automatic zoom with readable field text. */
+@media (pointer: coarse) {
+  .form_input { font-size: max(16px, 1em); }
+}
+
+/* Preserve the existing button artwork and layout while expanding hit areas. */
+@media (max-width: 767px) {
+  .button, .article_back { position: relative; }
+  .button::before, .article_back::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    min-width: 44px;
+    height: max(100%, 44px);
+    transform: translateY(-50%);
+  }
+}
