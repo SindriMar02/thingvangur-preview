@@ -1,0 +1,78 @@
+/* Þingvangur skin on the Módelhús / Vantra system. Layout, type and motion stay the source's.
+   Sections with no verified Þingvangur content are hidden here, not redesigned. */
+
+/* Template promo badge, template-only footer links, sections without content (no reel, no quotes, no portraits, no brochure) */
+.ctm-box, .ctm-link, .footer_links-grid,
+.statement_marquee,
+.section_culture, .section_testimonials,
+.section_profile, .section_team, .section_quote,
+.filter_wrap, .filter_bar { display: none !important; }
+
+/* Nav: the six studio categories and the profile/team anchors have no Þingvangur counterpart */
+a.nav_submenu-link[href^="/categories/"],
+a.nav_submenu-link[href="/about-us#profile"],
+a.nav_submenu-link[href="/about-us#team"] { display: none !important; }
+
+/* Certifications: rows 2 and 4 of the template carry text split around "&", row 6 is spare; rows 1, 3, 5 hold ours */
+.awards_list .awards_item:nth-child(2 of .awards_item),
+.awards_list .awards_item:nth-child(4 of .awards_item),
+.awards_list .awards_item:nth-child(6 of .awards_item) { display: none !important; }
+
+/* No brochure PDF to offer: the template's "download the profile" buttons stay hidden */
+.team_action { display: none !important; }
+
+/* Wordmark + faceted mark is 3.2:1, the template's mark slot was square */
+.logo_image { width: auto !important; height: 2.3em; max-width: none; object-fit: contain; }
+.footer_logo img { width: 100%; height: auto; display: block; }
+
+/* One accent, taken from the logo mark and their site CSS (#1a79c6): sales-stage bars and text selection */
+.live_bar { background-color: #1a79c6; }
+::selection { background: #1a79c6; color: #fff; }
+
+/* Icelandic capitalises the first word only */
+.footer_nav-text { text-transform: none !important; }
+
+/* Article bodies: nodes the news item does not use are blanked, not shown as empty blocks */
+.section_article-body :is(p, h2, h3, blockquote, li):empty,
+.section_article-body li:has(> strong:empty) { display: none; }
+
+/* The template's band photo was a dark long exposure; daylight buildings need the same depth for white text */
+.section_careers img { filter: brightness(.58) saturate(.9); }
+
+/* Phone hit areas: preserve the glyph position and desktop layout. */
+@media (max-width: 767px) {
+  .nav_menu-button {
+    width: 44px;
+    height: 44px;
+    margin: calc((var(--spaces--space-1-25x) - 44px) / 2);
+  }
+  .nav_menu-row, .nav_submenu-link, .nav_panel-cta, .footer_nav-link { min-height: 44px; }
+  .footer .link.is-light:not(:empty) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+/* The rebrand removes the template credit text; remove its empty link too. */
+.footer a.link.is-light:empty { display: none; }
+
+/* Phone: the hero filled the large viewport, so iOS Safari's toolbar covered the last headline line */
+@media (max-width: 767px) { .section_hero { height: 100svh !important; min-height: 0 !important; } }
+
+/* Skip link: off-screen until it takes keyboard focus */
+.skip-link { position: fixed; left: 12px; top: 12px; z-index: 1000; padding: 10px 14px; border-radius: 12px;
+  background: #0a0a0a; color: #f5f4f0; font: 600 14px/1 "Instrument Sans", sans-serif; transform: translateY(-200%); }
+.skip-link:focus-visible { transform: none; outline: 2px solid #1a79c6; outline-offset: 2px; }
+
+/* Keyboard focus on the services slider arrows (the template draws none) */
+.services_slider-arrow_left:focus-visible, .services_slider-arrow_right:focus-visible { outline: 2px solid #1a79c6; outline-offset: 3px; }
+
+/* Reduced motion: scroll reveals and the scroll-lit statement show their final state at once (the export has no reduced-motion
+   handling). Menu, FAQ and slider state changes are not listed here, they stay functional. */
+@media (prefers-reduced-motion: reduce) {
+  [data-fade-action="heading"], .section_meta, .careers_text, .buttons_row, .section_header-text, .principle_row,
+  .work_grid > *, .work_card, .live_list > *, .live_row, .journal_grid > *, .journal-index_list > *, .snapshot_top, .snapshot_figure, .snapshot_stat, .awards_item,
+  .snapshot_stats, .awards_list, .philosophy_strip, .statement_text, .statement_text * {
+    opacity: 1 !important; transform: none !important; translate: none !important;
+  }
+}
